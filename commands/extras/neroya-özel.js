@@ -10,7 +10,7 @@ const nero = new Discord.MessageEmbed()
 .addField('W32 SEVENLER','W32 İYİ BİR İNSAN LABALİ DEĞİL', true)
 .addField('NERO SEVENLER','NERO İYİ BİR İNSAN LABALİ DEĞİL', true)
 
-
+message.channel.send(nero)
 
 }
 
