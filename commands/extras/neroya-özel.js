@@ -1,27 +1,44 @@
 const Discord = require("discord.js");
-const db = require("quick.db");
-  const talkedRecently = new Set();
-exports.run = async (client, message, args) => {
+const instagram = require("user-instagram");
+exports.run = (client, message, args) => {
+  let kullanici = args.join(" ");
+  if (!kullanici) return message.reply(`❌ Bir Kullanıcı İsmi Girmelisin!`);
+  instagram("https://www.instagram.com/" + kullanici).then(data => {
+    const biocuk = data.bio.length === 0 ? "Yok" : data.bio;
+    const isimcik = data.fullName.length === 0 ? "Yok" : data.fullName;
+    var gizlimi;
+    var onaylimi;
+    if (data.isPrivate === false) gizlimi = "Hayır";
+    if (data.isPrivate === true) gizlimi = "Evet";
+    if (data.isVerified === false) onaylimi = "Hayır";
+    if (data.isVerified === true) onaylimi = "Evet";
+    const embed = new Discord.RichEmbed()
+      .setColor("RANDOM")
+      .setThumbnail(`${data.avatarHD}`)
+      .addField("🔱 Kullanıcı İsmi: ", `${kullanici}`)
+      .addField("👦 Tam İsmi: ", isimcik)
+      .addField("👥 Takipçi Sayısı: ", `${data.subscriberCount}`)
+      .addField("🔃 Takip Ettiği Kişi Sayısı: ", `${data.subscribtions}`)
+      .addField("🏰 Gönderi Sayısı: ", `${data.postCount}`)
+      .addField("📑 Kullanıcı Biografisi: ", biocuk)
+      .addField("🔐 ID: ", `${data.id}`)
+      .addField("🎭 Gizli Profil Mi: ", `${gizlimi}`)
+      .addField("💯 Onaylı Hesapmı: ", `${onaylimi}`)
+      .addField("🌐 Hesabın Linki: ", `${data.profileLink}`)
+      .setFooter(`İnstagram Bilgi Sistemi`)
+      .setTimestamp();
 
-const nero = new Discord.MessageEmbed()
-.setDescription('NERO AŞKO I LOVE YOU')
-.setImage('https://images-ext-2.discordapp.net/external/8LuZMe0Fxq94ipoJiCCbNlzzu6s834Rq-9KU7TOKGxc/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/335050947858530314/ff274929c0de68a6b01714055533a689.webp?width=512&height=512')
-.setTitle('NERO CANDIR GERİSİ YALANDIR')
-.addField('W32 SEVENLER','W32 İYİ BİR İNSAN LABALİ DEĞİL', true)
-.addField('NERO SEVENLER','NERO İYİ BİR İNSAN LABALİ DEĞİL', true)
-
-message.channel.send(nero)
-
-}
-
-
+    message.channel.send(embed);
+  });
+};
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
-  permlevel: 0
+  aliases: ["instagram-bilgi", "instagram-info"],
+  permLevel: 0
 };
-
 exports.help = {
-  name: "nero"
+  name: "instagram",
+  description: "Belirlenen Instagram Hesaplarinin bilgilerini verir!",
+  usage: "instagram <instagram-ismi>"
 };
