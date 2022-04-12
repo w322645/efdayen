@@ -13,7 +13,7 @@ exports.conf = {
     enabled: true, //kullanıma açık mı değil mi
     guildOnly: false, //dmde kullanıma açık mı değil mi
     aliases: ['kanal-görünürlük-kapat'], //kısayollar
-    permLevel: 0 //perm level mainde karşıliklar yazar
+    permLevel: 3 //perm level mainde karşıliklar yazar
   };
  
   exports.help = {
