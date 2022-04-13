@@ -1,17 +1,22 @@
+
 const Discord = require('discord.js');
-const Database = require("plasma-db");
-const db = new Database("./ekonomi.json");
-exports.run = async(client, message, args) => {
-let enginar = db.al(`para_${message.author.id}`) 
-message.reply(`Toplam paran ${enginar}`); 
+const ayarlar = require('../../config');
+const db = require('quick.db');
+const ms = require('ms')
+exports.run = async (client, message, args) => {
+let kişi = message.mentions.users.first() || message.author
+
+let parapara = await db.fetch(`para_${kişi.id}`) || 0  
+  
+  message.channel.send(new Discord.MessageEmbed().setDescription(`<@!${kişi.id}>\n\n Kişisinin <:tl:942374739605868595>**${parapara}** Parası Var\n\n`)
+                      .setColor("#36393f")
+                      )
 };
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
   aliases: [],
-  permLevel: 0,
+  permLevel: 0
 };
- 
+
 exports.help = {
-  name: 'param'
+  name: 'para'
 };

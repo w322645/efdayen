@@ -1,37 +1,55 @@
 const Discord = require('discord.js');
-const Database = require("plasma-db");
-const db = new Database("./ekonomi.json"); 
-const slots = ['1','10','5','100','5000','3000','2000','1000','360','2670','5100','1670','1690']
-exports.run = function(client, message) {
+const db = require('quick.db')
+const math = require("math-expression-evaluator");
+const { Command } = require('discord.js-commando');
+const { stripIndents } = require('common-tags');
+const slots = ['🥒', '🍎', '🍅', '🍋', '🐻'];
 
+exports.run = function(client, message, args) {
+
+  var oynamak = args[0]
+ 
     var slot1 = slots[Math.floor(Math.random() * slots.length)];
+    var slot2 = slots[Math.floor(Math.random() * slots.length)];
+    var slot3 = slots[Math.floor(Math.random() * slots.length)];
 
 
-    if (slot1) {
-        message.channel.send(`
+    if (isNaN(oynamak)) return message.reply('Para Miktarını Nası Sayısız Yazıcaksın?')
 
-        ${slot1} Kazandın
+let parapara = db.fetch(`para_${message.author.id}`) || 0  
+
+if (parapara < oynamak) return message.reply(`Para Miktarından Büyük bir Para Miktarıyla Slot Oyununu Oynayamassın :( \n\n **Paranız**\`${parapara}\``)
+      
+    if (slot1 === slot2 && slot1 === slot3) {
+       db.add(`para_${message.author.id}`, +oynamak)
+        message.channel.send(stripIndents`
+        ${slot1} : ${slot2} : ${slot3}
+        Tebrikler, kazandınız!
+
+    Kazancınız = \`${+oynamak}\`
         `);
-        db.ekle(`para_${message.author.id}`, slot1)
     } else {
-        message.channel.send(`
-        ${slots}
+      db.add(`para_${message.author.id}`,-oynamak)
+        message.channel.send(stripIndents`
+        ${slot1} : ${slot2} : ${slot3}
+        Eyvah, kaybettin!
 
-        Kaybettin
-        `);
-        db.cikar(`para_${message.author.id}`, slots)
-  }
+        Kaybettiğiniz = \`${-oynamak}\`
+        `);   
+    }
+  
+
 };
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
-  aliases: ['slots'],
+  guildOnly: true,
+  aliases: [],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'slots',
+  name: 'slot',
   description: 'Slots oyunu oynatır',
-  usage: 'slots'
-}; 
+  usage: 'slot'
+};

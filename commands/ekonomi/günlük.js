@@ -1,28 +1,52 @@
 const Discord = require('discord.js');
-const Database = require("plasma-db");
-const db = new Database("./ekonomis.json"); 
-const talkedRecently = new Set();
 
-exports.run = async(client, message, args) => {
-if (talkedRecently.has(message.author.id)) {
-    return message.reply("``Bu komutu kullanabilmek için 1 gün beklemelisin!``");
-} else {
- talkedRecently.add(message.author.id);
- setTimeout(() => {
- message.delete();
-   talkedRecently.delete(message.author.id);
- }, 86400);
+const ayarlar = require('../../config');
+
+const db = require('quick.db');
+
+const ms = require('ms')
+
+exports.run = async (client, message, args) => {
+  
+ var espriler = ['100','50','25','200','250','5','75'];
+      var espri = espriler[Math.floor(Math.random() * espriler.length)];
+
+  let yavaşmod = 8.64+7, // 24 Saat
+
+        amount = Math.floor(Math.random() * 1000) + 4000;      
+
+
+    let lastDaily = await db.fetch(`günlükbea_${message.guild.id}`);
+
+    if (lastDaily !== null && yavaşmod - (Date.now() - lastDaily) > 0) {
+
+        let timeObj = ms(yavaşmod - (Date.now() - lastDaily));
+
+
+
+
+
+      return message.reply(`Her 24 Saate Bir Para Alabilirsin`)
+
+      
+
+    } else {
+
+      db.add(`para_${message.author.id}`, espri)
+message.channel.send(new Discord.MessageEmbed().setDescription(`${espri}<:tl:942374739605868595> Kadar Parayı Kaptın!`).setColor("#36393f"));
 }
-    message.reply('Başarı ile günlük ödülünü aldın!'); 
-db.ekle(`para_${message.author.id}`, 3000) 
-};
+       db.set(`günlükbea_${message.guild.id}`, Date.now());
+
+    }
+
+
+
+
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: 0,
+  aliases: ["günlük"],
+  permLevel: 0
 };
- 
+
 exports.help = {
-  name: 'günlük'
+  name: 'günlük-para'
 };

@@ -64,7 +64,8 @@
     "node-google-translate-skidz": "^1.1.2",
     "cowsay": "^1.5.0",
     "hastebin-gen": "^2.0.5",
-    "akaneko": "^5.2.2"
+    "akaneko": "^5.2.2",
+    "discord.js-commando": "^0.12.3"
   },
   "engines": {
     "node": "12.x"
