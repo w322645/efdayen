@@ -8,7 +8,7 @@ let kişi = message.mentions.users.first() || message.author
 
 let parapara = await db.fetch(`para_${kişi.id}`) || 0  
   
-  message.channel.send(new Discord.MessageEmbed().setDescription(`<@!${kişi.id}>\n\n Kişisinin 💸**${parapara}** Parası Var\n\n`)
+  message.channel.send(new Discord.MessageEmbed().setDescription(`<@!${kişi.id}>\n\n Kişisinin <:tl:942374739605868595>**${parapara}** Parası Var\n\n`)
                       .setColor("#36393f")
                       )
 };
