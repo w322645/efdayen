@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     {
 
       db.add(`para_${message.author.id}`, espri)
-message.channel.send(new Discord.MessageEmbed().setDescription(`Medine De Dilendik ${espri}💸  Para Çıktı`).setColor("#36393f"));
+message.channel.send(new Discord.MessageEmbed().setDescription(`Medine De Dilendik ${espri}<:tl:942374739605868595>  Para Çıktı`).setColor("#36393f"));
 }
        db.set(`günlükbea_${message.guild.id}`, Date.now());
 

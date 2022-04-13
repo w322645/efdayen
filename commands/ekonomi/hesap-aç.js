@@ -21,7 +21,7 @@ let isim = args.slice(0).join(' ')
 db.set(`hesap-${message.author.id}`,"Hesap Açıldı")
   db.set(`hesapisim_${message.author.id}`,isim)
   db.add(`para_${message.author.id}`, 20)
-  if(!hesap) return message.channel.send("Başarılı Hesap Açtın Sana Hesap Actıgından Dolayı 💸20 Verıyorum") //sdsaassda
+  if(!hesap) return message.channel.send("Başarılı Hesap Açtın Sana Hesap Actıgından Dolayı 20Tl Verıyorum") //sdsaassda
   
 }///HAZIRLAYANLAR Clearly_ , FORCEX OgnSert
 exports.conf = {
