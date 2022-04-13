@@ -26,7 +26,7 @@ if (parapara < oynamak) return message.reply(`Para Miktarından Büyük bir Para
         ${slot1} : ${slot2} : ${slot3}
         Tebrikler, kazandınız!
 
-    Kazancınız = \`${+oynamak}\`
+    Kazancınız = 💸\`${+oynamak}\`
         `);
     } else {
       db.add(`para_${message.author.id}`,-oynamak)
@@ -34,7 +34,7 @@ if (parapara < oynamak) return message.reply(`Para Miktarından Büyük bir Para
         ${slot1} : ${slot2} : ${slot3}
         Eyvah, kaybettin!
 
-        Kaybettiğiniz = \`${-oynamak}\`
+        Kaybettiğiniz = 💸\`${-oynamak}\`
         `);   
     }
   

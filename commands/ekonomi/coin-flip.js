@@ -21,14 +21,20 @@ const cevaplar = [
 
 	var cevap = cevaplar[Math.floor(Math.random() * cevaplar.length)];
 	
-	if (cevap === `Para Havaya Atıldı <a:efdacoin:942809802042650644>  \n\n ✅**Kazandınız** \`${+oynamak}\``) {
+	if (cevap === new Discord.MessageEmbed()
+      .setDescription(`Para Havaya Atıldı <a:efdacoin:942809802042650644>  \n\n ✅**Kazandınız** \`${+oynamak}\``)
+     .setTitle('KAYBETTİNİZ')
+     .setThuumbnail('')) {
         db.add(`para_${message.author.id}`, +oynamak)
 		 const embedyazı = new Discord.MessageEmbed()
 		.setColor("GREEN")
 		.setDescription(cevap)
 		message.channel.send(embedyazı);
 		
-	} else if (cevap === `Para Havaya Atıldı <a:efdacoin:942809802042650644> \n\n ❌**Kaybettiniz** \`${-oynamak}\``) {
+	} else if (cevap === new Discord.MessageEmbed()
+             .setDescription(`Para Havaya Atıldı <a:efdacoin:942809802042650644> \n\n ❌**Kaybettiniz** \`${-oynamak}\``)
+             .setTitle('KAZANDINIZ')
+            .setThumbnail('https://cdn.glitch.global/f0a96444-9496-4632-89fd-03886491bc65/yaz%C4%B1.png?v=1649866533653')) {
 		db.add(`para_${message.author.id}`,-oynamak)
 		const embedtura = new Discord.MessageEmbed()
 		.setColor("RED")

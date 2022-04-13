@@ -11,7 +11,7 @@ let parapara =  db.add(`para_${kişi.id}`, AGA) || 0
 
 
 const mesajks = new Discord.MessageEmbed()
-.setDescription(`Ana Panelden ${kişi} Kişisine ${AGA} Miktar Para Eklendi Sahibim.`)
+.setDescription(`Ana Panelden ${kişi} Kişisine 💸${AGA} Miktar Para Eklendi Sahibim.`)
 .setColor('GREEN')
 message.channel.send(mesajks)
 
