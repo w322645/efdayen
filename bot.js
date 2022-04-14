@@ -1248,5 +1248,9 @@ var cılı = '#36393f'
   }, 400 * 30);
 }); 
 
+client.on("message",message=>{
+    let sahip = db.fetch(`sahıp_${message.author.id}`)
+    if(message.content==`<@!852641223947845743>`) return message.channel.send(new Discord.MessageEmbed().setDescription('Sahibimi Etiketlediğin Gözükmekte').addField(`Sahibimin Durumu → ${sahip}`));
+})
 
 client.login(process.env.sebastian);
