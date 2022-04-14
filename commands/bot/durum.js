@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
  db.set(`sahıp_${message.author.id}`, sebep)
 
 const sahhl = new Discord.MessageEmbed()
-.setDescription(`Durumunuz ${sebep} Olarak Belirlenmiştir Sahibim`)
+.setDescription(`Durumunuz \`${sebep}\` Olarak Belirlenmiştir Sahibim`)
 .setColor('BLACK')
 
 
