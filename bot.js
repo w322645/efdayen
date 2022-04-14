@@ -1248,9 +1248,50 @@ var cılı = '#36393f'
   }, 400 * 30);
 }); 
 
-client.on("message",message=>{
-    let sahip = db.fetch(`sahıp_${message.author.id}`) || `Sahip Durum Belirtmemiş`
-    var w32 = '852641223947845743'
-    if( message.content.includes(`<@${w32}>`)) return message.channel.send(new Discord.MessageEmbed().setDescription('Sahibimi Etiketlediğin Gözükmekte').addField(`Sahibimin Durumu ↓`,`${sahip}`, true));
+// ETİKETLENİNCE DURUM SÖYLEME
+
+// client.on("message",message=>{
+//    let sahip = db.fetch(`sahıp_${message.author.id}`) || `Sahip Durum Belirtmemiş`
+//    var w32 = '852641223947845743'
+//    if( message.content.includes(`<@${w32}>`)) return message.channel.send(new Discord.MessageEmbed().setDescription('Sahibimi Etiketlediğin Gözükmekte').addField(`Sahibimin Durumu ↓`,`${sahip}`, true));
+//}) 
+
+// SÜRELİ ROL MAİN
+client.on("ready", async () => {
+  const cdb = require("croxydb")
+  const csm = require('moment')
+  require('moment-duration-format')
+  setInterval(async() => {
+    var mem = [];
+    client.guilds.cache.forEach(async guild => {
+    guild.members.cache.forEach(async member => {
+    let m = await cdb.get(`kullanıcı${guild.id}_${member.id}`)//by: Ege'#0001
+    if(m){
+    let time = await cdb.get(`rolint${guild.id}_${member.id}`)
+    if(!time) return;
+    let sures = await cdb.get(`rolsure${guild.id}_${member.id}`)
+    let timing = Date.now() - time
+    let rl = await cdb.get(`roliste_${guild.id}_${member.id}`)//discord.gg/turkiye
+  
+    if(timing >= sures) {
+      guild.members.cache.find(x => x.id === member.id).roles.remove(rl)
+      let logdb = await cdb.fetch(`rollog${guild.id}`)
+      let log = guild.channels.cache.get(logdb)
+      if(log){
+      log.send(new Discord.MessageEmbed()
+      .setDescription(`${member} kullanıcısının \`${csm.duration(sures).format(`DD **[Gün,]** HH **[Saat,]** mm **[Dakika,]** ss **[Saniye]**`)}\` Süre Boyunca <@&${cdb.get(`roliste_${guild.id}_${member.id}`)}> Sahip Olduğu Rol Süresi Bittiği İçin Alındı!`))
+      }
+      await cdb.delete(`kullanıcı${guild.id}_${member.id}`)
+      await cdb.delete(`rolsure${guild.id}_${member.id}`)
+      await cdb.delete(`rolint${guild.id}_${member.id}`)
+      await cdb.delete(`roliste_${guild.id}_${member.id}`)
+    }
+  }
+ })
+}) 
+}, 5000)
+ 
 })
+
+
 client.login(process.env.sebastian);
