@@ -1249,8 +1249,8 @@ var cılı = '#36393f'
 }); 
 
 client.on("message",message=>{
-    let sahip = db.fetch(`sahıp_${message.author.id}`)
-    if(message.content==`<@!852641223947845743>`) return message.channel.send(new Discord.MessageEmbed().setDescription('Sahibimi Etiketlediğin Gözükmekte').addField(`Sahibimin Durumu → ${sahip}`));
+    let sahip = db.fetch(`sahıp_${message.author.id}`) || `Sahip Durum Belirtmemiş`
+    var w32 = '852641223947845743'
+    if( message.content.includes(`<@${w32}>`)) return message.channel.send(new Discord.MessageEmbed().setDescription('Sahibimi Etiketlediğin Gözükmekte').addField(`Sahibimin Durumu ↓`,`${sahip}`, true));
 })
-
 client.login(process.env.sebastian);
