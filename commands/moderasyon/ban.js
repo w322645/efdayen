@@ -2,21 +2,6 @@ const Discord = require("discord.js");
 const db = require("quick.db");
   const talkedRecently = new Set();
 exports.run = async (client, message, args) => {
-  
-    let user = message.mentions.users.first();
-  let userid;
-  if (isNaN(args[0])) {
-    if (!user) {
-      userid = message.author.id;
-    } else {
-      userid = user.id;
-    }
-  } else {
-    userid = args[0];
-  }
-  
-  
-  
 var renk = '0x36393E'
   let guild = message.channel.guild
   let rol = db.fetch(`banrol_${message.guild.id}`);
@@ -33,6 +18,7 @@ var renk = '0x36393E'
     return message.channel.send(
       "Ban log sistemi ayarlanmamış.**Ayarlamak İçin** `?ban-log #kanal`"
     );
+  let user = message.mentions.users.first();
   let sebep = args.slice(1).join(" ") || "Belirtilmemiş.";
   if (!user) return message.channel.send(" ``Bir kişi etiketlemelisin.``");
   if (user.id === message.author.id)
