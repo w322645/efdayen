@@ -27,7 +27,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['temizle','delete','sil'],
-  permLevel: 0
+  permLevel: 1
 };
 
 exports.help = {
